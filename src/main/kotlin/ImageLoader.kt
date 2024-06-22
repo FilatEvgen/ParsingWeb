@@ -11,7 +11,6 @@ fun downloadAndSaveImages(gameCards: List<GameCardModel>) {
     gameCards.forEach { game ->
         val gameDirectory = File(directory, game.title)
         gameDirectory.mkdirs()
-
         val mainImageFile = File(gameDirectory, "main_image.jpg")
         val iconFile = File(gameDirectory, "icon.jpg")
 
@@ -24,7 +23,7 @@ fun downloadAndSaveImages(gameCards: List<GameCardModel>) {
 
         // Обновляем записи в базе данных
         Database.removeDuplicates() // Удаляем дубликаты
-        val connection = Database.getConnection()?: return
+        val connection = Database.getConnection() ?: return
         val query = "UPDATE game_cards SET image =?, icon =? WHERE title =?"
         val statement = connection.prepareStatement(query)
         statement.setString(1, mainImageFile.absolutePath)

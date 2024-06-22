@@ -6,14 +6,14 @@ import java.sql.SQLException
 
 object Database {
 
-    private const val URL = "jdbc:postgresql://localhost:5432/game_list"
-    private const val USERNAME = "postgres"
-    private const val PASSWORD = "12345q"
+    private val url = System.getenv("URL")
+    private val username = System.getenv("USERNAME")
+    private  val password = System.getenv("PASSWORD")
 
     fun getConnection(): Connection? {
         try {
             Class.forName("org.postgresql.Driver")
-            return DriverManager.getConnection(URL, USERNAME, PASSWORD)
+            return DriverManager.getConnection(url, username, password)
         } catch (e: SQLException) {
             println("Error connecting to database: $e")
             return null
